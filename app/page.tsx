@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 type IconProps = { className?: string };
 
@@ -21,22 +21,36 @@ function XIcon({ className }: IconProps) {
   return <Icon className={className}><path d="M6 6l12 12" /><path d="M18 6 6 18" /></Icon>;
 }
 
-function Cuboid({ className }: IconProps) {
+function BoxIcon({ className }: IconProps) {
   return <Icon className={className}><path d="M21 16V8l-9-5-9 5v8l9 5 9-5Z" /><path d="M3.3 7.8 12 13l8.7-5.2" /><path d="M12 22V13" /></Icon>;
 }
 
-function Bolt({ className }: IconProps) {
-  return <Icon className={className}><path d="M13 2 4 14h7l-1 8 10-13h-7l1-7Z" /></Icon>;
-}
-
-function Circuit({ className }: IconProps) {
+function CircuitIcon({ className }: IconProps) {
   return <Icon className={className}><path d="M6 9V5h4" /><path d="M18 15v4h-4" /><path d="M10 5h4a4 4 0 0 1 4 4v6" /><path d="M14 19h-4a4 4 0 0 1-4-4V9" /><circle cx="6" cy="9" r="1" /><circle cx="18" cy="15" r="1" /></Icon>;
 }
 
-function MechativeMark({ className = "h-12 w-12", innerClassName = "h-7 w-7" }: { className?: string; innerClassName?: string }) {
+function BoltIcon({ className }: IconProps) {
+  return <Icon className={className}><path d="M13 2 4 14h7l-1 8 10-13h-7l1-7Z" /></Icon>;
+}
+
+function MechativeMark({ size = "md" }: { size?: "sm" | "md" | "lg" | "xl" }) {
+  const sizes = {
+    sm: "h-10 w-10",
+    md: "h-12 w-12",
+    lg: "h-24 w-24",
+    xl: "h-40 w-40 sm:h-56 sm:w-56 lg:h-72 lg:w-72",
+  };
+
+  const inner = {
+    sm: "h-6 w-6",
+    md: "h-7 w-7",
+    lg: "h-14 w-14",
+    xl: "h-24 w-24 sm:h-36 sm:w-36 lg:h-44 lg:w-44",
+  };
+
   return (
-    <div className={`grid place-items-center border border-[#d7a64b] bg-black shadow-[0_0_28px_rgba(217,166,75,.18)] ${className}`}>
-      <div className={`relative ${innerClassName}`}>
+    <div className={`grid shrink-0 place-items-center border border-[#d7a64b] bg-black shadow-[0_0_28px_rgba(217,166,75,.18)] ${sizes[size]}`}>
+      <div className={`relative ${inner[size]}`}>
         <span className="absolute bottom-0 left-[8%] h-[82%] w-[24%] bg-gradient-to-b from-[#f8d991] via-[#d7a64b] to-[#8a561b] [clip-path:polygon(0_0,72%_0,100%_18%,100%_100%,0_100%)]" />
         <span className="absolute bottom-0 left-1/2 h-[56%] w-[24%] -translate-x-1/2 bg-gradient-to-b from-[#f8d991] via-[#d7a64b] to-[#8a561b] [clip-path:polygon(0_0,100%_0,100%_72%,50%_100%,0_72%)]" />
         <span className="absolute bottom-0 right-[8%] h-[82%] w-[24%] bg-gradient-to-b from-[#f8d991] via-[#d7a64b] to-[#8a561b] [clip-path:polygon(28%_0,100%_0,100%_100%,0_100%,0_18%)]" />
@@ -47,11 +61,11 @@ function MechativeMark({ className = "h-12 w-12", innerClassName = "h-7 w-7" }: 
 
 function MechativeLogo() {
   return (
-    <div className="flex items-center gap-4">
-      <MechativeMark />
-      <div>
-        <p className="text-lg font-semibold uppercase tracking-[0.28em] text-[#f4c66d]">Mechative</p>
-        <p className="text-[10px] uppercase tracking-[0.24em] text-[#d7a64b]">Mechanics in motion</p>
+    <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+      <MechativeMark size="sm" />
+      <div className="min-w-0">
+        <p className="truncate text-sm font-semibold uppercase tracking-[0.18em] text-[#f4c66d] sm:text-lg sm:tracking-[0.28em]">Mechative</p>
+        <p className="hidden text-[10px] uppercase tracking-[0.2em] text-[#d7a64b] sm:block">Mechanics in motion</p>
       </div>
     </div>
   );
@@ -63,59 +77,60 @@ export default function Home() {
 
   const copy = {
     pl: {
-      nav: ["Projekty", "CAD", "Elektronika", "Poradniki", "Społeczność", "Kontakt"],
+      nav: ["Projekty", "Pliki CAD", "Elektronika", "Poradniki", "Społeczność", "Kontakt"],
       join: "Dołącz",
       eyebrow: "Mechanics + Active",
-      heroTitle: "Mechative",
-      heroDesc: "Platforma dla aktywnych twórców: mechanika, CAD, elektronika, druk 3D, CNC i projekty DIY w jednym miejscu.",
-      browse: "Przeglądaj projekty",
-      add: "Dodaj projekt",
       mechanics: "Mechanics",
       active: "Active",
       result: "Mechative",
-      intro: "Nazwa łączy precyzję mechaniki z aktywnym tworzeniem. Od pomysłu do działającego projektu.",
-      sections: [
+      intro: "Nazwa łączy precyzję mechaniki z aktywnym tworzeniem.",
+      desc: "Platforma dla makerów: CAD, elektronika, CNC, druk 3D i projekty DIY w jednym miejscu.",
+      browse: "Przeglądaj projekty",
+      add: "Dodaj projekt",
+      cards: [
         ["Projekty DIY", "Gotowe konstrukcje do pobrania krok po kroku."],
-        ["Pliki CAD", "Modele, rysunki, STL, STEP i dokumentacja."],
+        ["Pliki CAD", "Modele 3D, STL, STEP, rysunki i dokumentacja."],
         ["Elektronika", "Schematy, mikrokontrolery, PCB i moduły."],
       ],
     },
     en: {
-      nav: ["Projects", "CAD", "Electronics", "Guides", "Community", "Contact"],
+      nav: ["Projects", "CAD Files", "Electronics", "Guides", "Community", "Contact"],
       join: "Join",
       eyebrow: "Mechanics + Active",
-      heroTitle: "Mechative",
-      heroDesc: "A platform for active creators: mechanics, CAD, electronics, 3D printing, CNC and DIY projects in one place.",
-      browse: "Browse projects",
-      add: "Add project",
       mechanics: "Mechanics",
       active: "Active",
       result: "Mechative",
-      intro: "The name combines mechanical precision with active building. From idea to working project.",
-      sections: [
+      intro: "The name combines mechanical precision with active building.",
+      desc: "A platform for makers: CAD, electronics, CNC, 3D printing and DIY projects in one place.",
+      browse: "Browse projects",
+      add: "Add project",
+      cards: [
         ["DIY Projects", "Ready-to-download step-by-step builds."],
-        ["CAD Files", "Models, drawings, STL, STEP and documentation."],
+        ["CAD Files", "3D models, STL, STEP, drawings and documentation."],
         ["Electronics", "Schematics, microcontrollers, PCBs and modules."],
       ],
     },
   };
 
   const t = copy[lang];
-  const cards = [Cuboid, Circuit, Bolt];
+  const cardIcons = [BoxIcon, CircuitIcon, BoltIcon];
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#080807] text-white">
-      <div className="pointer-events-none fixed inset-0 opacity-40 [background-image:radial-gradient(circle_at_30%_10%,rgba(217,166,75,.16),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(255,201,109,.08),transparent_22%)]" />
+    <main className="min-h-screen overflow-x-hidden bg-[#080807] text-white">
+      <div className="pointer-events-none fixed inset-0 opacity-50 [background-image:radial-gradient(circle_at_30%_5%,rgba(217,166,75,.18),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(255,201,109,.09),transparent_24%)]" />
+      <div className="pointer-events-none fixed inset-0 opacity-[0.05] [background-image:linear-gradient(90deg,#fff_1px,transparent_1px),linear-gradient(#fff_1px,transparent_1px)] [background-size:64px_64px]" />
 
-      <header className="sticky top-0 z-50 border-b border-[#d7a64b]/10 bg-black/75 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+      <header className="sticky top-0 z-50 border-b border-[#d7a64b]/10 bg-black/80 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
           <MechativeLogo />
 
-          <div className="flex items-center gap-3">
-            <button onClick={() => setLang("pl")} className={`px-3 py-2 text-xs ${lang === "pl" ? "bg-[#d7a64b] text-black" : "border border-[#d7a64b]/30 text-zinc-300"}`}>PL</button>
-            <button onClick={() => setLang("en")} className={`px-3 py-2 text-xs ${lang === "en" ? "bg-[#d7a64b] text-black" : "border border-[#d7a64b]/30 text-zinc-300"}`}>EN</button>
-            <button onClick={() => setMenuOpen(true)} className="grid h-11 w-11 place-items-center border border-[#d7a64b]/60 text-[#f4c66d] transition hover:bg-[#d7a64b] hover:text-black" aria-label="Open menu">
-              <MenuIcon className="h-6 w-6" />
+          <div className="flex shrink-0 items-center gap-2">
+            <div className="flex border border-[#d7a64b]/25 bg-white/[0.03] p-1">
+              <button onClick={() => setLang("pl")} className={`px-2.5 py-1.5 text-[11px] font-bold ${lang === "pl" ? "bg-[#d7a64b] text-black" : "text-zinc-300"}`}>PL</button>
+              <button onClick={() => setLang("en")} className={`px-2.5 py-1.5 text-[11px] font-bold ${lang === "en" ? "bg-[#d7a64b] text-black" : "text-zinc-300"}`}>EN</button>
+            </div>
+            <button onClick={() => setMenuOpen(true)} className="grid h-10 w-10 place-items-center border border-[#d7a64b]/60 text-[#f4c66d] transition hover:bg-[#d7a64b] hover:text-black sm:h-11 sm:w-11" aria-label="Open menu">
+              <MenuIcon className="h-5 w-5 sm:h-6 sm:w-6" />
             </button>
           </div>
         </div>
@@ -124,23 +139,23 @@ export default function Home() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-md">
-            <motion.aside initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ type: "spring", damping: 28, stiffness: 220 }} className="ml-auto h-full w-full max-w-md border-l border-[#d7a64b]/20 bg-[#0c0b09] p-8 shadow-2xl">
-              <div className="mb-10 flex items-center justify-between">
+            <motion.aside initial={{ y: 24, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 24, opacity: 0 }} transition={{ duration: .22 }} className="h-full w-full overflow-y-auto bg-[#0c0b09] p-5 sm:ml-auto sm:max-w-md sm:border-l sm:border-[#d7a64b]/20 sm:p-8">
+              <div className="mb-8 flex items-center justify-between gap-4">
                 <MechativeLogo />
-                <button onClick={() => setMenuOpen(false)} className="grid h-11 w-11 place-items-center border border-[#d7a64b]/50 text-[#f4c66d]" aria-label="Close menu">
-                  <XIcon className="h-6 w-6" />
+                <button onClick={() => setMenuOpen(false)} className="grid h-10 w-10 shrink-0 place-items-center border border-[#d7a64b]/50 text-[#f4c66d]" aria-label="Close menu">
+                  <XIcon className="h-5 w-5" />
                 </button>
               </div>
 
-              <nav className="grid gap-4">
+              <nav className="grid gap-1">
                 {t.nav.map((item) => (
-                  <a key={item} href="#" onClick={() => setMenuOpen(false)} className="border-b border-white/10 py-4 text-xl uppercase tracking-[0.16em] text-zinc-200 transition hover:text-[#f4c66d]">
+                  <a key={item} href="#" onClick={() => setMenuOpen(false)} className="border-b border-white/10 py-4 text-lg uppercase tracking-[0.14em] text-zinc-200 transition hover:text-[#f4c66d]">
                     {item}
                   </a>
                 ))}
               </nav>
 
-              <button className="mt-10 w-full bg-gradient-to-r from-[#f8d991] to-[#c58b31] px-8 py-4 text-sm font-bold uppercase tracking-[0.14em] text-black">
+              <button className="mt-8 w-full bg-gradient-to-r from-[#f8d991] to-[#c58b31] px-8 py-4 text-sm font-bold uppercase tracking-[0.14em] text-black">
                 {t.join}
               </button>
             </motion.aside>
@@ -148,68 +163,72 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      <section className="relative z-10 mx-auto grid min-h-[calc(100vh-81px)] max-w-7xl items-center gap-10 px-5 py-12 sm:px-6 sm:py-16 lg:grid-cols-[1fr_.9fr] lg:gap-12">
-        <div>
-          <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} className="mb-6 text-sm uppercase tracking-[0.24em] text-[#f4c66d]">
+      <section className="relative z-10 mx-auto flex max-w-7xl flex-col px-4 pb-8 pt-8 sm:px-6 sm:pb-10 sm:pt-12 lg:flex-row lg:items-center lg:gap-14 lg:py-12">
+        <div className="w-full lg:w-[58%]">
+          <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="mb-5 text-xs uppercase tracking-[0.22em] text-[#f4c66d] sm:text-sm">
             {t.eyebrow}
           </motion.p>
 
-          <div className="mb-8 flex flex-wrap items-center gap-2 text-3xl font-light uppercase tracking-wide sm:gap-3 sm:text-4xl md:text-6xl">
-            <motion.span initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: .15 }} className="text-zinc-200">
-              {t.mechanics}
-            </motion.span>
-            <motion.span initial={{ opacity: 0, scale: .5 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: .55 }} className="text-[#d7a64b]">
-              +
-            </motion.span>
-            <motion.span initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: .3 }} className="text-zinc-200">
-              {t.active}
-            </motion.span>
+          <div className="space-y-2 sm:space-y-3">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[2rem] font-light uppercase leading-none tracking-wide sm:text-5xl lg:text-6xl">
+              <motion.span initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: .1 }} className="text-zinc-200">
+                {t.mechanics}
+              </motion.span>
+              <motion.span initial={{ opacity: 0, scale: .5 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: .35 }} className="text-[#d7a64b]">
+                +
+              </motion.span>
+              <motion.span initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: .2 }} className="text-zinc-200">
+                {t.active}
+              </motion.span>
+            </div>
+
+            <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .55 }} className="flex items-center gap-4 pt-3 sm:gap-5 sm:pt-5">
+              <MechativeMark size="lg" />
+              <h1 className="min-w-0 bg-gradient-to-r from-[#f8d991] via-[#d7a64b] to-[#8a561b] bg-clip-text text-[2.45rem] font-semibold uppercase leading-none tracking-[0.06em] text-transparent sm:text-6xl lg:text-7xl">
+                {t.result}
+              </h1>
+            </motion.div>
           </div>
 
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .8 }} className="mb-8 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
-            <MechativeMark className="h-20 w-20 border-2" innerClassName="h-12 w-12" />
-            <h1 className="bg-gradient-to-r from-[#f8d991] via-[#d7a64b] to-[#8a561b] bg-clip-text text-4xl font-semibold uppercase tracking-[0.08em] text-transparent sm:text-5xl md:text-7xl">
-              {t.result}
-            </h1>
-          </motion.div>
-
-          <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }} className="max-w-2xl text-base leading-7 text-zinc-300 sm:text-lg sm:leading-8">
+          <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .75 }} className="mt-6 max-w-2xl text-base leading-7 text-zinc-300 sm:text-lg sm:leading-8">
             {t.intro}
           </motion.p>
 
-          <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.15 }} className="mt-5 max-w-2xl text-base leading-7 text-zinc-400">
-            {t.heroDesc}
+          <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .9 }} className="mt-3 max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base">
+            {t.desc}
           </motion.p>
 
-          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.3 }} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <button className="bg-gradient-to-r from-[#f8d991] to-[#c58b31] px-7 py-4 text-sm font-bold uppercase tracking-[0.12em] text-black">
+          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.05 }} className="mt-7 grid gap-3 sm:flex sm:flex-wrap">
+            <button className="w-full bg-gradient-to-r from-[#f8d991] to-[#c58b31] px-6 py-4 text-sm font-bold uppercase tracking-[0.12em] text-black sm:w-auto">
               {t.browse}
             </button>
-            <button className="border border-[#d7a64b]/70 px-7 py-4 text-sm font-bold uppercase tracking-[0.12em] text-white">
+            <button className="w-full border border-[#d7a64b]/70 px-6 py-4 text-sm font-bold uppercase tracking-[0.12em] text-white sm:w-auto">
               {t.add}
             </button>
           </motion.div>
         </div>
 
-        <motion.div initial={{ opacity: 0, scale: .92, rotate: -2 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ delay: .75, duration: .8 }} className="relative mx-auto mt-6 w-full max-w-[320px] sm:max-w-md lg:mt-0 lg:max-w-lg">
-          <div className="absolute -inset-10 bg-[#d7a64b]/10 blur-3xl" />
-          <div className="relative aspect-square border border-[#d7a64b]/60 bg-[#11100e] p-5 shadow-[0_30px_100px_rgba(0,0,0,.75)]">
-            <div className="grid h-full place-items-center border border-[#d7a64b]/80 bg-[radial-gradient(circle_at_50%_35%,rgba(217,166,75,.16),transparent_35%),linear-gradient(145deg,#151412,#070707)]">
-              <MechativeMark className="h-44 w-44 border-2 sm:h-56 sm:w-56 lg:h-64 lg:w-64" innerClassName="h-28 w-28 sm:h-36 sm:w-36 lg:h-40 lg:w-40" />
+        <motion.div initial={{ opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: .7, duration: .65 }} className="mt-7 w-full lg:mt-0 lg:w-[42%]">
+          <div className="relative mx-auto w-full max-w-[280px] sm:max-w-[420px] lg:max-w-lg">
+            <div className="absolute -inset-6 bg-[#d7a64b]/10 blur-3xl" />
+            <div className="relative aspect-square border border-[#d7a64b]/60 bg-[#11100e] p-3 shadow-[0_30px_100px_rgba(0,0,0,.75)] sm:p-5">
+              <div className="grid h-full place-items-center border border-[#d7a64b]/80 bg-[radial-gradient(circle_at_50%_35%,rgba(217,166,75,.16),transparent_35%),linear-gradient(145deg,#151412,#070707)]">
+                <MechativeMark size="xl" />
+              </div>
             </div>
           </div>
         </motion.div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-7xl px-6 pb-20">
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {t.sections.map(([title, desc], i) => {
-            const CardIcon = cards[i];
+      <section className="relative z-10 mx-auto max-w-7xl px-4 pb-12 sm:px-6 sm:pb-20">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {t.cards.map(([title, desc], i) => {
+            const CardIcon = cardIcons[i];
             return (
-              <motion.div key={title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .1 }} className="border border-white/10 bg-white/[0.03] p-7 transition hover:border-[#d7a64b]/70 hover:bg-[#d7a64b]/5">
-                <CardIcon className="mb-7 h-11 w-11 text-[#d7a64b]" />
-                <h2 className="text-lg font-bold uppercase tracking-[0.14em]">{title}</h2>
-                <p className="mt-4 leading-7 text-zinc-400">{desc}</p>
+              <motion.div key={title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ delay: i * .08 }} className="border border-white/10 bg-white/[0.03] p-5 transition hover:border-[#d7a64b]/70 hover:bg-[#d7a64b]/5 sm:p-7">
+                <CardIcon className="mb-5 h-9 w-9 text-[#d7a64b] sm:mb-7 sm:h-11 sm:w-11" />
+                <h2 className="text-base font-bold uppercase tracking-[0.12em] sm:text-lg sm:tracking-[0.14em]">{title}</h2>
+                <p className="mt-3 text-sm leading-6 text-zinc-400 sm:mt-4 sm:text-base sm:leading-7">{desc}</p>
               </motion.div>
             );
           })}
