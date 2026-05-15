@@ -234,6 +234,52 @@ export default function Home() {
           })}
         </div>
       </section>
+
+      <section id="kontakt" className="relative z-10 mx-auto max-w-7xl px-4 pb-16 sm:px-6 sm:pb-24">
+        <div className="grid gap-8 border border-[#d7a64b]/20 bg-white/[0.03] p-5 sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
+          <div>
+            <p className="mb-4 text-xs uppercase tracking-[0.22em] text-[#f4c66d] sm:text-sm">
+              {lang === "pl" ? "Kontakt" : "Contact"}
+            </p>
+            <h2 className="text-3xl font-light uppercase leading-tight tracking-wide sm:text-4xl">
+              {lang === "pl" ? "Masz pomysł na projekt?" : "Have a project idea?"}
+            </h2>
+            <p className="mt-5 max-w-xl text-sm leading-7 text-zinc-400 sm:text-base">
+              {lang === "pl"
+                ? "Napisz, czego potrzebujesz: projekt CAD, elektronika, prototyp, druk 3D albo pomysł DIY. Formularz wyśle wiadomość bezpośrednio na e-mail."
+                : "Tell us what you need: CAD design, electronics, prototype, 3D printing or a DIY idea. The form sends the message directly by email."}
+            </p>
+            <div className="mt-7 border border-white/10 bg-black/30 p-4 text-sm leading-7 text-zinc-300">
+              <p className="text-[#f4c66d]">Mechative</p>
+              <p>strefacad@gmail.com</p>
+            </div>
+          </div>
+
+          <form action="https://formsubmit.co/strefacad@gmail.com" method="POST" className="grid gap-4">
+            <input type="hidden" name="_subject" value="Nowa wiadomość z Mechative" />
+            <input type="hidden" name="_captcha" value="false" />
+
+            <div className="grid gap-2">
+              <label className="text-xs uppercase tracking-[0.16em] text-zinc-400">{lang === "pl" ? "Imię" : "Name"}</label>
+              <input name="name" required className="w-full border border-white/10 bg-black/50 px-4 py-3 text-white outline-none transition placeholder:text-zinc-600 focus:border-[#d7a64b]" placeholder={lang === "pl" ? "Twoje imię" : "Your name"} />
+            </div>
+
+            <div className="grid gap-2">
+              <label className="text-xs uppercase tracking-[0.16em] text-zinc-400">E-mail</label>
+              <input name="email" type="email" required className="w-full border border-white/10 bg-black/50 px-4 py-3 text-white outline-none transition placeholder:text-zinc-600 focus:border-[#d7a64b]" placeholder="you@example.com" />
+            </div>
+
+            <div className="grid gap-2">
+              <label className="text-xs uppercase tracking-[0.16em] text-zinc-400">{lang === "pl" ? "Wiadomość" : "Message"}</label>
+              <textarea name="message" required rows={5} className="w-full resize-none border border-white/10 bg-black/50 px-4 py-3 text-white outline-none transition placeholder:text-zinc-600 focus:border-[#d7a64b]" placeholder={lang === "pl" ? "Opisz krótko swój projekt..." : "Briefly describe your project..."} />
+            </div>
+
+            <button type="submit" className="mt-2 bg-gradient-to-r from-[#f8d991] to-[#c58b31] px-7 py-4 text-sm font-bold uppercase tracking-[0.12em] text-black">
+              {lang === "pl" ? "Wyślij wiadomość" : "Send message"}
+            </button>
+          </form>
+        </div>
+      </section>
     </main>
   );
 }
