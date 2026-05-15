@@ -148,13 +148,13 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      <section className="relative z-10 mx-auto grid min-h-[calc(100vh-81px)] max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-[1fr_.9fr]">
+      <section className="relative z-10 mx-auto grid min-h-[calc(100vh-81px)] max-w-7xl items-center gap-10 px-5 py-12 sm:px-6 sm:py-16 lg:grid-cols-[1fr_.9fr] lg:gap-12">
         <div>
           <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} className="mb-6 text-sm uppercase tracking-[0.24em] text-[#f4c66d]">
             {t.eyebrow}
           </motion.p>
 
-          <div className="mb-8 flex flex-wrap items-center gap-3 text-4xl font-light uppercase tracking-wide md:text-6xl">
+          <div className="mb-8 flex flex-wrap items-center gap-2 text-3xl font-light uppercase tracking-wide sm:gap-3 sm:text-4xl md:text-6xl">
             <motion.span initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: .15 }} className="text-zinc-200">
               {t.mechanics}
             </motion.span>
@@ -166,14 +166,14 @@ export default function Home() {
             </motion.span>
           </div>
 
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .8 }} className="mb-8 flex items-center gap-5">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .8 }} className="mb-8 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
             <MechativeMark className="h-20 w-20 border-2" innerClassName="h-12 w-12" />
-            <h1 className="bg-gradient-to-r from-[#f8d991] via-[#d7a64b] to-[#8a561b] bg-clip-text text-5xl font-semibold uppercase tracking-[0.12em] text-transparent md:text-7xl">
+            <h1 className="bg-gradient-to-r from-[#f8d991] via-[#d7a64b] to-[#8a561b] bg-clip-text text-4xl font-semibold uppercase tracking-[0.08em] text-transparent sm:text-5xl md:text-7xl">
               {t.result}
             </h1>
           </motion.div>
 
-          <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }} className="max-w-2xl text-lg leading-8 text-zinc-300">
+          <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }} className="max-w-2xl text-base leading-7 text-zinc-300 sm:text-lg sm:leading-8">
             {t.intro}
           </motion.p>
 
@@ -181,7 +181,7 @@ export default function Home() {
             {t.heroDesc}
           </motion.p>
 
-          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.3 }} className="mt-10 flex flex-col gap-4 sm:flex-row">
+          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.3 }} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
             <button className="bg-gradient-to-r from-[#f8d991] to-[#c58b31] px-7 py-4 text-sm font-bold uppercase tracking-[0.12em] text-black">
               {t.browse}
             </button>
@@ -191,18 +191,18 @@ export default function Home() {
           </motion.div>
         </div>
 
-        <motion.div initial={{ opacity: 0, scale: .92, rotate: -2 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ delay: .75, duration: .8 }} className="relative mx-auto w-full max-w-lg">
+        <motion.div initial={{ opacity: 0, scale: .92, rotate: -2 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ delay: .75, duration: .8 }} className="relative mx-auto mt-6 w-full max-w-[320px] sm:max-w-md lg:mt-0 lg:max-w-lg">
           <div className="absolute -inset-10 bg-[#d7a64b]/10 blur-3xl" />
           <div className="relative aspect-square border border-[#d7a64b]/60 bg-[#11100e] p-5 shadow-[0_30px_100px_rgba(0,0,0,.75)]">
             <div className="grid h-full place-items-center border border-[#d7a64b]/80 bg-[radial-gradient(circle_at_50%_35%,rgba(217,166,75,.16),transparent_35%),linear-gradient(145deg,#151412,#070707)]">
-              <MechativeMark className="h-64 w-64 border-2" innerClassName="h-40 w-40" />
+              <MechativeMark className="h-44 w-44 border-2 sm:h-56 sm:w-56 lg:h-64 lg:w-64" innerClassName="h-28 w-28 sm:h-36 sm:w-36 lg:h-40 lg:w-40" />
             </div>
           </div>
         </motion.div>
       </section>
 
       <section className="relative z-10 mx-auto max-w-7xl px-6 pb-20">
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {t.sections.map(([title, desc], i) => {
             const CardIcon = cards[i];
             return (
